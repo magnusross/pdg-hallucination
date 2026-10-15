@@ -1,0 +1,43 @@
+name: fast
+scientific_validity: screening
+seed_offsets: [0]
+
+self_consistency:
+  required_seed_count: 1
+  validity_level: screening
+  mpnn:
+    factory: mosaic.proteinmpnn.mpnn.load_mpnn_sol
+    checkpoint: soluble_v_48_020
+    temperature: 0.1
+    excluded_amino_acids: [C]
+  reference_selection: max_protein_iptm_yaml_order_tiebreak
+  dockq:
+    implementation: DockQ
+    residue_mapping: positional_numbering
+    target_grouping: merged
+    hetero_atoms: excluded
+  target_aligned_rmsd:
+    atom_names: [N, CA, C, O]
+models:
+  - name: esmfold2_full
+    factory: mosaic.models.esmfold2.ESMFold2Full
+    checkpoint: biohub/ESMFold2
+    recycling_steps: 3
+    sampling_steps: 50
+    samples_per_seed: 1
+    use_target_msa: true
+  - name: esmfold2_fast
+    factory: mosaic.models.esmfold2.ESMFold2Fast
+    checkpoint: biohub/ESMFold2-Fast
+    recycling_steps: 3
+    sampling_steps: 50
+    samples_per_seed: 1
+    use_target_msa: false
+  - name: protenix_v2
+    factory: mosaic.models.protenix.ProtenixV2
+    checkpoint: protenix_v2
+    conversion_commit: 5c3297407df9c7dbeb4369b81e597e4e2af0d567
+    recycling_steps: 10
+    sampling_steps: 200
+    samples_per_seed: 1
+    use_target_msa: true

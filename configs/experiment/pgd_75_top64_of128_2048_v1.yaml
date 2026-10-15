@@ -1,0 +1,33 @@
+# @package _global_
+
+defaults:
+  - override /profile: reference
+  - override /optimizer: pgd
+  - _self_
+
+experiment_id: pgd_75_top64_of128_2048_v1
+
+num_designs: 128
+binder_length: 80
+seed: 1
+
+design:
+  n_steps: 75
+  tail_select_steps: 10
+
+ranking_preselection:
+  metric: tail_iptm
+  tie_breaker: design_index
+  expected_candidates: 128
+  count: 64
+
+cell_dir: ${output_root}/${experiment_id}/${target.target_id}_pgd_seed${seed}
+
+hydra:
+  sweeper:
+    params:
+      target: 4ZQK,IL7Ra,TREM2,RBX1,TrkA,BHRF1,MBP,BBF14,VEGFA,TNFa
+      optimizer: pgd
+      seed: 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16
+  sweep:
+    subdir: ${target.target_id}_pgd_seed${seed}

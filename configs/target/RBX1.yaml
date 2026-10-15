@@ -1,0 +1,11 @@
+target_id: RBX1
+name: Rbx1
+default_binder_length: 80
+chains:
+  - entity_id: target_A
+    sequence: MAAAMDVDTPSGTNSGAGKKRFEVKKWNAVALWAWDIVVDNCAICRNHIMDLCIECQANQASATSEECTVAWGVCNHAFHFHCISRWLKTRQVCPLDNREWEFQKYGH
+    use_msa: true
+ligands:
+  - entity_id: ligand_ZN
+    ccd: ZN
+    count: 3

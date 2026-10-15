@@ -1,0 +1,6 @@
+kind: pgd
+optimizer_id: pgd_lr0p075_m0p25
+init_scale: 0.01
+stepsize_scale: 0.075
+momentum: 0.25
+max_gradient_norm: 1.0

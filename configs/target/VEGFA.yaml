@@ -1,0 +1,11 @@
+target_id: VEGFA
+name: VEGF-A homodimer
+default_binder_length: 80
+chains:
+  - entity_id: target_A
+    sequence: VVKFMDVYQRSYCHPIETLVDIFQEYPDEIEYIFKPSCVPLMRCGGCCNDEGLECVPTEESNITMQIMRIKPHQGQHIGEMSFLQHNKCECRPK
+    use_msa: true
+  - entity_id: target_B
+    sequence: VVKFMDVYQRSYCHPIETLVDIFQEYPDEIEYIFKPSCVPLMRCGGCCNDEGLECVPTEESNITMQIMRIKPHQGQHIGEMSFLQHNKCECRPK
+    use_msa: true
+ligands: []

@@ -1,0 +1,7 @@
+kind: biohub
+# Gaussian logit initialization and plain SGD without momentum.
+init_scale: 0.01
+learning_rate: 0.1
+temperature_min: 0.01
+beta: 0.0
+

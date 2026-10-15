@@ -1,0 +1,11 @@
+target_id: TREM2
+name: TREM2
+default_binder_length: 80
+chains:
+  - entity_id: target_A
+    sequence: HNTTVFQGVAGQSLQVSCPYDSMKHWGRRKAWCRQLGEKGPCQRVVSTHNLWLLSFLRRWNGSTAITDDTLGGTLTITLRNLQPHDAGLYQCQSLHGSEADTLRKVLVEVLADPLDHRDAGDLWFPGESESFEDAHVEHSISRSLLEGEIPFPPTS
+    use_msa: true
+ligands: []
+self_consistency:
+  primary_target_residue_ranges:
+    target_A: [[1, 112]]

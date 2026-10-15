@@ -1,0 +1,11 @@
+# @package hydra.launcher
+defaults:
+  - ray
+
+ray:
+  init:
+    num_gpus: ${oc.decode:${oc.env:BINDEROPT_NUM_GPUS,1}}
+    num_cpus: ${oc.decode:${oc.env:BINDEROPT_NUM_GPUS,1}}
+  remote:
+    num_gpus: 1
+    num_cpus: 1

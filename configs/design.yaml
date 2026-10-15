@@ -1,0 +1,48 @@
+defaults:
+  - target: 4ZQK
+  - optimizer: pgd
+  - profile: l40s
+  - _self_
+  - experiment: null
+
+experiment_id: design
+objective_id: esm_binder
+num_designs: 1
+binder_length: ${target.default_binder_length}
+batch_size: ${profile.design.batch_size}
+seed: 1
+output_root: outputs
+cell_dir: ${output_root}/${experiment_id}/${target.target_id}_${optimizer.kind}
+launch_id: ${oc.env:SLURM_JOB_ID,${now:%Y%m%d_%H%M%S}}
+
+design:
+  alphabet: ARNDCQEGHILKMFPSTWYV
+  excluded_amino_acids: [C]
+  n_steps: 150
+  tail_select_steps: 20
+  # Average independent ESMC PLL draws for each final hardened sequence.
+  final_esmc_perplexity_batches: 16
+  objective:
+    within_binder_contact:
+      weight: 0.5
+      num_contacts_per_residue: 2
+    inter_contact:
+      weight: 0.5
+      contact_distance: 22.0
+    globularity:
+      weight: 0.2
+    esmc_pll:
+      weight: 0.15
+      masking_fraction: 0.15
+      num_samples: 4
+
+hydra:
+  run:
+    dir: ${output_root}/${experiment_id}/_launches/${launch_id}/design/${target.target_id}_${optimizer.kind}
+  sweep:
+    dir: ${output_root}/${experiment_id}/_launches/${launch_id}/design
+    subdir: ${target.target_id}_${optimizer.kind}
+  job:
+    chdir: false
+  output_subdir: hydra
+

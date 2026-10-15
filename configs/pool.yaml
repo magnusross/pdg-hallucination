@@ -1,0 +1,16 @@
+# Pooled screening is a separate stage, not a final ranking recipe.
+defaults:
+  - target: 4ZQK
+  - profile: reference
+  - ranking: full
+  - _self_
+  - experiment: pgd_75_pool1024_of2048_fast_ipsae_v2
+
+hydra:
+  job:
+    chdir: false
+  run:
+    dir: ${output_root}/${experiment_id}/_launches/${now:%Y%m%d_%H%M%S}/${stage}
+  sweep:
+    dir: ${output_root}/${experiment_id}/_launches/${now:%Y%m%d_%H%M%S}/${stage}
+    subdir: ${target.target_id}_seed${cell_seed}

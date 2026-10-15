@@ -1,0 +1,8 @@
+target_id: BBF14
+name: BBF-14 de novo beta-barrel
+default_binder_length: 80
+chains:
+  - entity_id: target_A
+    sequence: MGTPLWALLGGPWRGTATYEDGTKVTLDYRYTRVSPDRLRADVTYTTPDGTTLEATVDLWKDANGVIRYHATYPDGTSADGTLTQLDADTLLATGTYDDGTKYTVTLTRV
+    use_msa: true
+ligands: []

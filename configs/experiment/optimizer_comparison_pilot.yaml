@@ -1,0 +1,20 @@
+# @package _global_
+
+defaults:
+  - override /profile: isambard
+  - _self_
+
+experiment_id: optimizer_comparison_pilot
+num_designs: 16
+binder_length: 80
+seed: 1
+
+design:
+  n_steps: 150
+  tail_select_steps: 20
+
+hydra:
+  sweeper:
+    params:
+      target: 4ZQK,IL7Ra,RBX1
+      optimizer: biohub,pgd

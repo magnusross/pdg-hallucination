@@ -1,0 +1,9 @@
+defaults:
+  - reference
+  - _self_
+
+name: isambard
+cache:
+  offline: true
+  root: ${oc.env:MOSAIC_CACHE_DIR}
+

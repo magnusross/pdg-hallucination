@@ -1,0 +1,96 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "binderopt"
+version = "0.1.0"
+description = "Focused, reproducible Mosaic-based protein-binder design"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = "==3.12.*"
+dependencies = [
+  "dockq==2.1.3",
+  "hydra-core>=1.3.2,<2",
+  "hydra-ray-launcher",
+  "mosaic",
+  "numpy>=2,<3",
+  "pyyaml>=6,<7",
+]
+
+[dependency-groups]
+analysis = [
+  "ipykernel>=7,<8",
+  "matplotlib>=3.10,<4",
+  "pandas>=2.3,<3",
+]
+dev = [
+  "mypy>=1.17,<2",
+  "pytest>=8,<10",
+  "ruff>=0.12,<1",
+]
+jax-cpu = ["jax[cpu]"]
+jax-cuda = ["jax[cuda]"]
+
+[tool.uv.sources]
+mosaic = { git = "https://github.com/escalante-bio/mosaic", rev = "b26c2c120265fe87bdeee5bef76e0f93d9e3a3d2" }
+esm = { git = "https://github.com/Biohub/esm.git", rev = "fba1e42a8a0f8df2b7e08611c88807aa32a25d9c" }
+esmjfold2 = { git = "https://github.com/escalante-bio/esmjfold2.git", rev = "40a33070c4db646152dc374c650f0dedf3c506a6" }
+jablang = { git = "https://github.com/escalante-bio/jablang", rev = "454a022eb9525247c93719caeb6c7db557f7984f" }
+jopenfold3 = { git = "https://github.com/escalante-bio/jopenfold3.git", rev = "4da1c2d305546415b9f6d93ddb0adcad2e3d176c" }
+jproteina-complexa = { git = "https://github.com/escalante-bio/jproteina-complexa.git", rev = "8f910255298402e7988b549cb55e345a97322d39" }
+protenix = { git = "https://github.com/escalante-bio/protenij", rev = "e34edf244a8bace44d81603cfb00ce4c44e5d04f" }
+boltz = { git = "https://github.com/escalante-bio/boltz.git", rev = "1acc397b6e81f30dc07a80d17a26c38f9c6f6942" }
+boltzgen = { git = "https://github.com/escalante-bio/boltzgen.git", rev = "c0bbc7ec0dad7f7bc11d28cd83297fb02ddb757a" }
+joltz = { git = "https://github.com/nboyd/joltz", rev = "f099dc4ea666d44974fc1a78e7d89bde1b8dbd10" }
+joltzgen = { git = "https://github.com/escalante-bio/joltzgen.git", rev = "63925bf2ef5cc033cd4c2bf5c63e638ba338bf24" }
+torch = { index = "pytorch" }
+torchvision = { index = "pytorch" }
+
+[[tool.uv.index]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv]
+package = true
+environments = [
+  "sys_platform == 'linux' and platform_machine == 'x86_64'",
+  "sys_platform == 'linux' and platform_machine == 'aarch64'",
+]
+override-dependencies = ["torch==2.7.1", "torchvision==0.22.1"]
+conflicts = [
+  [
+    { group = "jax-cpu" },
+    { group = "jax-cuda" },
+  ],
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/binderopt"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+markers = [
+  "hardware: requires a supported accelerator and staged model assets",
+  "integration: exercises optional Mosaic or distributed integrations",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[[tool.mypy.overrides]]
+module = ["Bio", "Bio.*", "DockQ", "DockQ.*", "equinox", "equinox.*", "hydra", "hydra.*", "jax", "jax.*", "mosaic", "mosaic.*", "numpy", "numpy.*", "omegaconf", "omegaconf.*", "esm", "esm.*", "yaml", "protenix", "protenix.*", "huggingface_hub", "huggingface_hub.*"]
+ignore_missing_imports = true
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "src"
+files = ["src"]

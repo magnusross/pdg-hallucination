@@ -1,0 +1,8 @@
+target_id: TrkA
+name: TrkA
+default_binder_length: 80
+chains:
+  - entity_id: target_A
+    sequence: VSFPASVQLHTAVEMHHWCIPFSVDGQPAPSLRWLFNGSVLNETSFIFTEFLEPAANETVRHGCLRLNQPTHVNNGNYTLLAANPFGQASASIMAAFMDNP
+    use_msa: true
+ligands: []

@@ -1,0 +1,24 @@
+defaults:
+  - target: 4ZQK
+  - optimizer: pgd
+  - profile: reference
+  - ranking: full
+  - _self_
+  - experiment: null
+
+experiment_id: design
+output_root: outputs
+cell_dir: ${output_root}/${experiment_id}/${target.target_id}_${optimizer.kind}
+launch_id: ${oc.env:SLURM_JOB_ID,${now:%Y%m%d_%H%M%S}}
+ranking_seed: 1
+ranking_preselection: null
+
+hydra:
+  run:
+    dir: ${output_root}/${experiment_id}/_launches/${launch_id}/rank
+  sweep:
+    dir: ${output_root}/${experiment_id}/_launches/${launch_id}/rank
+    subdir: ${target.target_id}_${optimizer.kind}
+  job:
+    chdir: false
+  output_subdir: hydra

@@ -1,0 +1,8 @@
+target_id: 4ZQK
+name: 4ZQK (PD-L1)
+default_binder_length: 80
+chains:
+  - entity_id: target_A
+    sequence: AFTVTVPKDLYVVEYGSNMTIECKFPVEKQLDLAALIVYWEMEDKNIIQFVHGEEDLKVQHSSYRQRARLLKDQLSLGNAALQITDVKLQDAGVYRCMISYGGADYKRITVKVNA
+    use_msa: true
+ligands: []

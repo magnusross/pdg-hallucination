@@ -1,0 +1,5 @@
+kind: pgd
+init_scale: 0.01
+stepsize_scale: 0.1
+momentum: 0.0
+max_gradient_norm: 1.0

@@ -1,0 +1,28 @@
+name: reference
+scientific_validity: reference
+ranking_recipe: full
+design:
+  batch_size: 1
+  supports_msa: false
+  language_model:
+    factory: mosaic.losses.esmc.load_esmc
+    checkpoint: Biohub/ESMC-6B
+  structure_models:
+    - name: esmfold2_experimental_fast
+      factory: mosaic.models.esmfold2.ESMFold2ExperimentalFast
+      checkpoint: biohub/ESMFold2-Experimental-Fast
+    - name: esmfold2_experimental_fast_cutoff2025
+      factory: mosaic.models.esmfold2.ESMFold2ExperimentalFast2025
+      checkpoint: biohub/ESMFold2-Experimental-Fast-Cutoff2025
+  inference:
+    recycling_steps: 1
+    # Diffusion sampling is used for tail iPTM and final reference predictions.
+    sampling_steps: 50
+    num_diffusion_samples: 1
+    lm_dropout: 0.5
+    msa_max_depth: 1024
+cache:
+  offline: false
+  root: ${oc.env:MOSAIC_CACHE_DIR,${oc.env:XDG_CACHE_HOME,${oc.env:HOME}/.cache}/mosaic}
+resources:
+  gpus_per_task: 1

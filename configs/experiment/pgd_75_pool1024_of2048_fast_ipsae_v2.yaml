@@ -1,0 +1,20 @@
+# @package _global_
+
+# Redesign every candidate, screen one Fast seed, then rank the target-wide survivors.
+stage: audit
+source_experiment_id: pgd_75_top64_of128_2048_v1
+source_dir: outputs/${source_experiment_id}
+experiment_id: pgd_75_pool1024_of2048_fast_ipsae_v2
+output_root: outputs
+pool_dir: ${output_root}/${experiment_id}/${target.target_id}
+source_seeds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+candidates_per_cell: 128
+selection_count: 1024
+cell_seed: 1
+screening_seed: 1
+ranking_seed: 1
+
+hydra:
+  sweeper:
+    params:
+      target: 4ZQK,IL7Ra,TREM2,RBX1,TrkA,BHRF1,MBP,BBF14,VEGFA,TNFa
